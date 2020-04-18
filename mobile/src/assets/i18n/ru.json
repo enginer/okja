@@ -62,7 +62,7 @@
     "AVAILABLE": "Вы можете помочь людям, помочь нам?",
     "ROLE_TYPE": {
       "FOOD": "еда",
-      "FARMACY": "медикаменты",
+      "FARMACY": "лекарства",
       "MAIL": "почта",
       "COMPANY": "компания"
     },
@@ -80,7 +80,7 @@
     "UNIT_DISTANCE_K": "km",
     "ACTIVITY_TYPES": {
       "FOOD": "Еда",
-      "PHARMACY": "Медикаменты",
+      "PHARMACY": "Лекарства",
       "MAIL": "Почта",
       "COMPANY": "Компания"
     },
