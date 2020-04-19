@@ -1,6 +1,6 @@
 .page {
-  --padding-start: 2em;
-  --padding-end: 2em;
+  //--padding-start: 2em;
+  //--padding-end: 2em;
 
   ion-item {
     --background: transparent;
@@ -9,8 +9,69 @@
     --padding-start: 0px;
   }
 }
+ion-toolbar {
+  --background: #005fea;
+  --border-style: none;
+  ion-back-button {
+    --color: white;
+  }
+  ion-button {
+    --color: white;
+  }
+}
+.page>ion-grid {
+  padding: 0;
+}
+
+.body {
+  background-color: #f3f3f3;
+  color: black;
+  padding: 2em 15px 100px;
+
+  .header-label {
+    font-size: 18px;
+  }
+
+  ion-item.item-label-floating {
+    background-color: #e6e6e6;
+  }
+  ion-item {
+    border-radius: 8px;
+    font-family: Montserrat;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+
+    ion-label {
+      font-size: 11px;
+      color: var(--label-gray);
+      padding-left: 20px;
+    }
+
+    ion-input {
+      font-size: 14px;
+      color: var(--text-gray);
+      --padding-start: 15px;
+      --padding-top: 0;
+      --padding-bottom: 0;
+    }
+  }
+}
 
 .title {
+  font-family: Montserrat;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+}
+
+.name {
   font-family: Montserrat;
   font-size: 24px;
   font-weight: bold;
@@ -19,7 +80,24 @@
   line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
-  padding-top: 2em;
+}
+
+.header {
+  padding-top: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: -1.8em;
+}
+
+.header-right-col {
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.header-right-col-bottom {
+  position: absolute;
+  bottom: 2em;
+  color: white;
 }
 
 .titleContainer {
@@ -96,4 +174,55 @@
   line-height: normal;
   letter-spacing: normal;
   color: #ffffff;
+}
+
+.profile-photo {
+  border-radius: 10px;
+}
+
+.availability-row {
+  padding-top: 20px;
+}
+
+.availabilityChip {
+  height: 1.875rem;
+  width: 6.125rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  --background: #f3f3f3;
+  --color: var(--side-gray);
+  margin: 0 0.9375rem 0.9375rem 0;
+  justify-content: center;
+}
+
+.selectedChip {
+  --background: var(--ion-color-primary);
+  --color: var(--ion-color-primary-contrast);
+}
+
+.distance-filter {
+  padding: 0;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 1.5625rem;
+  color: var(--side-gray);
+}
+.distance-label {
+  padding-right: 10px;
+}
+
+.distance-range {
+  background-color: #f3f3f3;
+  width: 100%;
+}
+
+.distance-range-selector {
+  padding: 0;
+  --knob-size: 10px;
+  --bar-height: 10px;
+  --bar-border-radius: 5px;
+  --bar-background: #ababab;
+  --knob-background: var(--badge-blue);
+  --bar-background-active: var(--badge-blue);
 }

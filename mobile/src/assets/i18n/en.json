@@ -48,17 +48,24 @@
   },
   "PROFILE_PAGE": {
     "TITLE": "Profile",
+    "HELLO": "Hello,",
+    "PEOPLE_YOU_HELP": "people you help",
+    "YOUR_DATA": "Your data",
     "FIRST_MESSAGE": "Hey, I can take care of you.",
     "CONFIG_MESSAGE": "Can You go to the market? Pharmacy?",
-    "NAME": "Name",
+    "FIRST_NAME": "First Name",
     "SURNAME": "Surname",
     "COUNTRY": "Country",
     "CITY": "City",
-    "ADDRESS": "Place",
+    "CITY_STATE_ZIP": "City / State / ZIP",
+    "ADDRESS": "Address",
     "PHONE": "Phone",
+    "DATE_OF_BIRTH": "Date of Birth",
     "SKYPE": "Skype",
     "MESSAGE_HELP": "I can help you with:",
     "AVAILABLE": "You ara available to help people, help us?",
+    "AVAILABILITY": "Availability",
+    "DISTANCE": "Distance",
     "ROLE_TYPE": {
       "FOOD": "food",
       "FARMACY": "farmacy",
@@ -90,7 +97,8 @@
       "MORNING": "Morning",
       "AFTER_NOON": "After noon",
       "EVENING": "Evening"
-    }
+    },
+    "BACK": "Back"
   },
   "EXIT": {
     "BACK_BUTTON": "Press back again to exit App"

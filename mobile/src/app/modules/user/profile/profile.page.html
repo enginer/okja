@@ -1,69 +1,115 @@
-<ion-content class="app-background page">
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button [text]="'COMMON.BACK' | translate"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToSettings()">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
+<ion-content class="app-background page">
   <!-- First Page -->
-  <ion-grid *ngIf="showInfo">
-    <ion-row>
-      <ion-col size="8">
-        <div class="title">
-          {{ 'PROFILE_PAGE.FIRST_MESSAGE' | translate }}
-        </div>
+  <ion-grid *ngIf="profile">
+    <ion-row class="header">
+      <ion-col size="5">
+        <img [src]="profile?.photoURL" class="profile-photo">
       </ion-col>
-      <ion-col size="4">
-        <img src="assets/images/icon/ico_hand.svg" class="img-title">
+      <ion-col size="7" class="header-right-col">
+          <div class="title">
+            {{ 'PROFILE_PAGE.HELLO' | translate }}
+          </div>
+          <div class="name">
+            {{ profile?.name }} {{ profile?.surName }}
+          </div>
+          <!--div class="header-right-col-bottom">
+            {{ 'PROFILE_PAGE.PEOPLE_YOU_HELP' | translate }}
+          </div-->
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col>
-        <div *ngIf="profile">
+    <ion-grid class="body">
+      <ion-row>
+        <ion-col size="12" class="header-label">{{ 'PROFILE_PAGE.YOUR_DATA' | translate }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
           <ion-item>
-            <ion-label position="floating">
-              {{ 'PROFILE_PAGE.NAME' | translate }}
-            </ion-label>
+            <ion-label position="floating">{{ 'PROFILE_PAGE.FIRST_NAME' | translate }}</ion-label>
             <ion-input [(ngModel)]="profile.name"></ion-input>
           </ion-item>
+        </ion-col>
+        <ion-col>
           <ion-item>
-            <ion-label position="floating">
-              {{ 'PROFILE_PAGE.SURNAME' | translate }}
-            </ion-label>
+            <ion-label position="floating">{{ 'PROFILE_PAGE.SURNAME' | translate }}</ion-label>
             <ion-input [(ngModel)]="profile.surName"></ion-input>
           </ion-item>
-          <ion-item>
-            <ion-label position="floating">
-              {{ 'PROFILE_PAGE.PHONE' | translate }}
-            </ion-label>
-            <ion-input [(ngModel)]="profile.phone" inputmode="tel"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">
-              {{ 'PROFILE_PAGE.SKYPE' | translate }}
-            </ion-label>
-            <ion-input [(ngModel)]="profile.skypeId"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">
-              {{ 'PROFILE_PAGE.ADDRESS' | translate }}
-            </ion-label>
-            <ion-input [(ngModel)]="profile.address" [disabled]="true"></ion-input>
-          </ion-item>
-        </div>
-      </ion-col>
-    </ion-row>
-    <div class="buttonsContainer">
-      <ion-row>
-        <ion-col>
-          <ion-button expand="block" (click)="showModalPosiont()" class="ui-button">
-            {{ 'PROFILE_PAGE.POSITION' | translate }}
-          </ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-button expand="block" (click)="onClickHideInfo()" class="ui-button">
-            {{ 'PROFILE_PAGE.NEXT' | translate }}
-          </ion-button>
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input></ion-input>
+          </ion-item>
         </ion-col>
       </ion-row>
-    </div>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">{{ 'PROFILE_PAGE.PHONE' | translate }}</ion-label>
+            <ion-input [(ngModel)]="profile.phone"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">{{ 'PROFILE_PAGE.DATE_OF_BIRTH' | translate }}</ion-label>
+            <ion-input ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">{{ 'PROFILE_PAGE.ADDRESS' | translate }}</ion-label>
+            <ion-input [(ngModel)]="profile.address"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">{{ 'PROFILE_PAGE.CITY_STATE_ZIP' | translate }}</ion-label>
+            <ion-input [(ngModel)]="profile.city"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="header-label">{{ 'PROFILE_PAGE.AVAILABILITY' | translate }}</ion-col>
+      </ion-row>
+      <ion-row class="availability-row">
+          <ng-container *ngFor="let type of availabilityList" >
+            <ion-chip [class.selectedChip]="type == availability" class="availabilityChip"
+                      (click)="onChangeAvailability(type)">
+              {{ 'COMMON.AVAILABILITY_TYPES.' + type.toUpperCase() | translate }}
+            </ion-chip>
+          </ng-container>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <span class="header-label distance-label">{{ 'PROFILE_PAGE.DISTANCE' | translate }}</span>
+          <span *ngIf="distance <= 10" class="distance-filter">{{ distance }}{{ 'COMMON.UNIT_DISTANCE_K' | translate }}</span>
+          <span *ngIf="distance > 10" class="distance-filter">∞</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-item (ionChange)="onChangeDistance()" class="distance-range">
+          <ion-range [(ngModel)]="distance" min="0" max="15" step="5" class="distance-range-selector"></ion-range>
+        </ion-item>
+      </ion-row>
+    </ion-grid>
   </ion-grid>
   <!-- End First Page -->
 

@@ -10,6 +10,8 @@ import { Roles } from 'models/enums/roles.enum';
 import { Profile } from 'models/class/profile';
 import { PositionPikerComponent } from 'modules/user/position-piker/position-piker.component';
 import { LoaderService } from 'services/loader.service';
+import { AvailabilityType } from "../../../models/enums/availability.enum";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'user-profile',
@@ -23,11 +25,15 @@ export class ProfilePage implements OnInit, OnDestroy {
     help: Roles
   }
 
+  public availabilityList: AvailabilityType[] = [];
+  public availability: AvailabilityType;
   public showInfo = true;
   public profile: Profile;
   public hasProfile = false;
+  public distance: number;
 
   constructor(
+    private readonly router: Router,
     private readonly loaderService: LoaderService,
     private readonly userDataService: UserDataService,
     private readonly profileService: ProfileService,
@@ -37,6 +43,10 @@ export class ProfilePage implements OnInit, OnDestroy {
     private readonly modalController: ModalController
   ) {
     this.translateConfigService.getDefaultLanguage();
+
+    Object.keys(AvailabilityType).forEach((type) => {
+      this.availabilityList.push(AvailabilityType[type]);
+    });
   }
 
   ngOnInit() {
@@ -55,14 +65,14 @@ export class ProfilePage implements OnInit, OnDestroy {
   async onEnter() {
     await this.loaderService.showLoader();
     this.showInfo = true;
-    this.getProrile()
+    this.getProfile()
     await this.loaderService.hideLoader();
   }
 
 
   public onClickHideInfo() {
     const p = this.profile.position;
-    if (p && p.lat && p.lat != 0 && p.lng && p.lng != 0) {
+    if (p && p.lat && p.lat !== 0 && p.lng && p.lng !== 0) {
       this.showInfo = false;
 
     } else {
@@ -82,7 +92,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     const modal = await this.modalController.create({
       component: PositionPikerComponent,
       componentProps: {
-        'profile': this.profile
+        profile: this.profile
       },
       swipeToClose: true,
       showBackdrop: true,
@@ -115,10 +125,22 @@ export class ProfilePage implements OnInit, OnDestroy {
     }
   }
 
+  public onChangeAvailability(type) {
+    this.availability = type;
+  }
+
+  public onChangeDistance() {
+    if (this.distance === 0) {
+      this.distance = 1;
+    } else if (this.distance > 10) {
+      this.distance = 9999;
+    }
+  }
+
   // ------------- PRIVATE METHODS --------------//
   // --------------------------------------------//
 
-  private getProrile() {
+  private getProfile() {
     return this.profileService.getProfile()
       .pipe(
         switchMap(profile => this.getProfileSwitchMap(profile)),
@@ -144,13 +166,16 @@ export class ProfilePage implements OnInit, OnDestroy {
   }
 
   private async showToast(message: string): Promise<void> {
-    const t = await this.toast.create({ message: message })
+    const t = await this.toast.create({ message })
     t.present();
     setTimeout(() => {
       t.dismiss();
     }, 2000);
   }
 
+  goToSettings() {
+    this.router.navigate(['tabs/settings'])
+  }
 }
 
 
